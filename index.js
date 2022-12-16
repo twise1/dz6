@@ -24,7 +24,13 @@ const card = [
 const express = require("express");
 const app = express();
 app.get('/card/:id', function (request,response){
-    response.send(JSON.stringify(card.find((item) => item.id == request.params.id)));
+    const id1 = parseInt(request.params.id);
+    const card1 = card.find((cards) => cards.id === id1);
+  if (!card1) {
+    response.status(404).send();
+  }
+  else
+    response.json({id: request.params.id , number: card[Number(request.params.id)-1].number });
 })
 app.listen(3000, function (){
     console.log("Сервер запущен под номером 3000");
